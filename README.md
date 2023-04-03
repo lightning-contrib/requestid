@@ -1,6 +1,6 @@
 # requestid
 
-The Lightning Request ID middleware is designed to provide unique request IDs for every incoming request and add them to logs and response headers. This helps with tracking request in a distributed system, making it easier to debug and troubleshoot issues.
+The `Lightning` Request ID middleware is designed to provide unique request IDs for every incoming request and add them to logs and response headers. This helps with tracking request in a distributed system, making it easier to debug and troubleshoot issues.
 
 ## Installation
 
@@ -11,12 +11,6 @@ go get github.com/lightning-contrib/requestid
 ```
 
 ## Usage
-
-To use requestid middleware, import it in your Go code:
-
-```go
-import github.com/lightning-contrib/requestid
-```
 
 Here is an example of how to use `requestid` middleware:
 
@@ -30,7 +24,6 @@ import (
 
 func main() {
 	app := lightning.NewApp()
-
 	app.Use(requestid.Default())
 
 	app.Get("/ping", func(ctx *lightning.Context) {
@@ -43,7 +36,7 @@ func main() {
 }
 ```
 
-On the other hand, you can also use the New() function, it also returns a middleware, but it allows for customization of the config struct through the use of variadic Options arguments.
+You can also use the `New()` function, it also returns a middleware, but it allows for customization of the config struct through the use of variadic Options arguments.
 
 ```go
 app.Use(requestid.New(
