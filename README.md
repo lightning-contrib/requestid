@@ -4,6 +4,8 @@ The Lightning Request ID middleware is designed to provide unique request IDs fo
 
 ## Installation
 
+To use the Request ID middleware, you can install it using the following command:
+
 ```bash
 go get github.com/lightning-contrib/requestid
 ```
@@ -13,13 +15,42 @@ go get github.com/lightning-contrib/requestid
 To use requestid middleware, import it in your Go code:
 
 ```go
-import "github.com/lightning-contrib/requestid"
+import github.com/lightning-contrib/requestid
 ```
 
-Here is an example of how to use My SDK to ping the My API:
+Here is an example of how to use `requestid` middleware:
 
 ```go
+package main
 
+import (
+	"github.com/go-labx/lightning"
+	"github.com/lightning-contrib/requestid"
+)
+
+func main() {
+	app := lightning.NewApp()
+
+	app.Use(requestid.Default())
+
+	app.Get("/ping", func(ctx *lightning.Context) {
+		ctx.JSON(200, map[string]string{
+			"message": "pong",
+		})
+	})
+
+	app.Run()
+}
+```
+
+On the other hand, you can also use the New() function, it also returns a middleware, but it allows for customization of the config struct through the use of variadic Options arguments.
+
+```go
+app.Use(requestid.New(
+    requestid.WithAlphabet("1234567890"),
+    requestid.WithHeaderKey("X-Custom-ID"),
+    requestid.WithSize(16)),
+)
 ```
 
 ## API Documentation
